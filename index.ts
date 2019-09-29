@@ -1,5 +1,16 @@
-const Telegraf = require('telegraf')
+import express from 'express';
+import ProjectsRouter from "./routes/projects";
+import AuthRouter from "./routes/authorization";
+import Config from './configuration';
+import db from './database';
+import bodyParser from 'body-parser';
 
-const bot = new Telegraf('913354997:AAEoTXmJJXr7hyykD3-bHjvITJt4ynGHEVc')
-bot.command('add', (ctx:any) => {console.log(ctx);ctx.reply('Hello')})
-bot.launch()
+const server = express();
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+server.use(ProjectsRouter);
+server.use(AuthRouter);
+server.listen(Config.PORT, () => {
+    db;
+    console.log('server started');
+});

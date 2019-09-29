@@ -1,3 +1,5 @@
-export default {
-    token: '913354997:AAEoTXmJJXr7hyykD3-bHjvITJt4ynGHEVc'
+const config = {
+    PORT: process.env.PORT || 4000
 };
+
+export default config;
