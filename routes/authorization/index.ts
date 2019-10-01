@@ -20,10 +20,10 @@ router.post('/api/login', validateLogin, async (req: Request, res: Response) => 
         res.status(404).json({ok: false, errors: (req as any).errors});
     } else {
         const result = await User.findOne({email: req.body.email});
-        if ((result as any).checkPassword(req.body.hash)) {
-            console.log(true);
+        if (result ? (result as any).checkPassword(req.body.hash) : false) {
+            res.status(200).json({ok: true, suc_token: await (result as any).generateToken()})
         } else {
-            console.log(false);
+            res.status(404).json({ok: false})
         }
     }
 });
