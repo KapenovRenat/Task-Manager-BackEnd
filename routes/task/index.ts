@@ -5,6 +5,14 @@ import Task from '../../models/task';
 
 const router = express.Router();
 
+router.get('/api/project/:id/tasks', async (req: Request, res: Response) => {
+    try {
+        res.status(200).json({ok: true, res: await Task.find({project_id: req.params.id})});
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server Error'});
+    }
+});
+
 router.post('/api/project/:id/task', verifiAuth, async (req: Request, res: Response) => {
     const query = new Task({
         name: req.body.name,
@@ -26,6 +34,15 @@ router.put('/api/project/task/:id', async (req: Request, res: Response)=> {
     try {
         const updateTask = await Task.findByIdAndUpdate(req.params.id, { name, status_id });
         res.status(200).json({ok: true, res: updateTask});
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server Error'});
+    }
+});
+
+router.delete('/api/project/task/:id', async (req: Request, res: Response)=> {
+    try {
+        await Task.findByIdAndDelete(req.params.id);
+        res.status(200).json({ok: true, res: 'Task Deleted'});
     } catch (e) {
         res.status(500).json({ok: false, res: 'Server Error'});
     }
