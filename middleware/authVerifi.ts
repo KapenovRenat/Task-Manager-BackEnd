@@ -13,6 +13,6 @@ export const verifiAuth = async (req: Request, res: Response, next: any) => {
         }
         next();
     } catch (e) {
-        res.json({ok: false, msg: 'token expared'});
+        res.json({ok: false, msg: 'token expired'});
     }
 };
