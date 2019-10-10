@@ -22,12 +22,16 @@ router.get('/api/projects', verifiAuth, async (req: Request, res: Response) => {
 });
 
 router.post('/api/projects', verifiAuth, async (req: Request, res: Response) => {
-    const project = new Project({name: req.body.name, author: (req as any).user._id});
+    const project = new Project({
+        name: req.body.name,
+        author: (req as any).user._id,
+        hash: req.body.hash
+    });
     try {
         await project.save();
         res.status(200).json({ok: true, res: 'Project created'})
     }catch (e) {
-        res.status(404).json({ok: false, res: 'Server error'});
+        res.status(500).json({ok: false, res: 'Server error'});
     }
 });
 

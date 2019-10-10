@@ -1,12 +1,19 @@
+import bcrypt from "bcrypt";
 import * as mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
-    name: {type: String},
-    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    name: {type: String, required: true},
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    url_avatar: {type: String},
+    hash: {type: String}
 });
 
 projectSchema.pre('save',   async function (next: any) {
+    (this as any).hash ?
+        (this as any).hash = await bcrypt.hash((this as any).hash, 10) :
+        (this as any).hash = '';
 
+    next();
 });
 
 
