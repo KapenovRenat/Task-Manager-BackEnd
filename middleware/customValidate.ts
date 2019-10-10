@@ -8,11 +8,11 @@ export const validate = (req: Request, res: Response, next: any) => {
     }
 
     if (!req.body.hash) {
-        errors.push('Emty Password');
+        errors.push('Empty Password');
     }
 
     if (!req.body.name) {
-        errors.push('Emty Name');
+        errors.push('Empty Name');
     }
 
     (req as any).errors = errors;
