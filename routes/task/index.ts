@@ -21,4 +21,14 @@ router.post('/api/project/:id/task', verifiAuth, async (req: Request, res: Respo
     }
 });
 
+router.put('/api/project/task/:id', async (req: Request, res: Response)=> {
+    const { name, status_id } = req.body;
+    try {
+        const updateTask = await Task.findByIdAndUpdate(req.params.id, { name, status_id });
+        res.status(200).json({ok: true, res: updateTask});
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server Error'});
+    }
+});
+
 export default router;

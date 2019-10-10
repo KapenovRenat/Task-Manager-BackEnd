@@ -12,7 +12,6 @@ projectSchema.pre('save',   async function (next: any) {
     (this as any).hash ?
         (this as any).hash = await bcrypt.hash((this as any).hash, 10) :
         (this as any).hash = '';
-
     next();
 });
 
