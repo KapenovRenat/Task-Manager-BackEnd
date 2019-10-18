@@ -23,7 +23,7 @@ router.post('/api/registration', validate, async (req: Request, res: Response) =
 
 router.get('/api/registration/:id', async (req: Request, res: Response) => {
     try {
-        await User.findByIdAndUpdate(req.params.id, {isTrue: true});
+        await User.findByIdAndUpdate(req.params.id, {isActivate: true});
         res.redirect('/');
     } catch (e) {
         res.redirect('/');

@@ -5,7 +5,8 @@ const projectSchema = new mongoose.Schema({
     name: {type: String, required: true},
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     url_avatar: {type: String},
-    hash: {type: String}
+    hash: {type: String},
+    isPrivate: {type: Boolean, default: false}
 });
 
 projectSchema.pre('save',   async function (next: any) {

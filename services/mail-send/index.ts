@@ -5,14 +5,14 @@ interface IUser {
     name: string;
     email: string;
     hash: string;
-    isTrue: boolean;
+    isActivate: boolean;
 }
 
 export async function mailSend(user: IUser) {
     let transporter = nodemailer.createTransport({
         host: 'smtp.mail.ru',
         port: 465,
-        secure: true, // true for 465, false for other ports
+        secure: true,
         auth: {
             user: config.MAIL.email,
             pass: config.MAIL.password
