@@ -13,7 +13,7 @@ router.post('/api/registration', validate, async (req: Request, res: Response) =
         try {
             const user = new User(req.body);
             const newUser = await user.save();
-            await mailSend((newUser as any));
+            mailSend((newUser as any));
             res.status(200).json({ok: true, res: 'User created, pls confirm you email!'});
         } catch (e) {
             res.status(400).json({ok: false, res: 'Sorry, Server Error'})
