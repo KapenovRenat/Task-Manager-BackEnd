@@ -36,7 +36,7 @@ router.post('/api/login', validateLogin, async (req: Request, res: Response) => 
     } else {
         const result = await User.findOne({email: req.body.email});
         if (result ? (result as any).checkPassword(req.body.hash) : false) {
-            res.status(200).json({ok: true, suc_token: await (result as any).generateToken()})
+            res.status(200).json({ok: true, suc_token: await (result as any).createToken()})
         } else {
             res.status(500).json({ok: false})
         }

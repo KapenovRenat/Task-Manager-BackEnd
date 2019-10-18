@@ -18,7 +18,7 @@ userSchema.methods.checkPassword = function(password: string) {
     return bcrypt.compareSync(password, this.hash);
 };
 
-userSchema.methods.generateToken = async function() {
+userSchema.methods.createToken = async function() {
     return await jwt.sign({
         data: {_id: this._id, name: this.name}
     }, 'manager', { expiresIn: 60 * 60 });
