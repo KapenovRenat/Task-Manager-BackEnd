@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 const userSchema = new mongoose.Schema({
     email: {type: String, unique: true, lowercase: true},
     name: {type: String},
-    hash: {type: String}
+    hash: {type: String},
+    isTrue: {type: Boolean, default: false}
 });
 
 userSchema.pre('save',   async function (next: any) {
@@ -26,3 +27,4 @@ userSchema.methods.generateToken = async function() {
 const User = mongoose.model('User', userSchema);
 
 export default User;
+

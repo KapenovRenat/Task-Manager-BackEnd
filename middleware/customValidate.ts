@@ -27,7 +27,7 @@ export const validateLogin = (req: Request, res: Response, next: any) => {
     }
 
     if (!req.body.hash) {
-        errors.push('Emty Password');
+        errors.push('Empty Password');
     }
 
     (req as any).errors = errors;
@@ -35,6 +35,6 @@ export const validateLogin = (req: Request, res: Response, next: any) => {
 };
 
 const validEmail = (email: string) => {
-    const check = /^\w+@\w+\.\w{2,4}$/i;
-    return check.test(email) ? true : false;
+    const check = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return check.test(email);
 };
