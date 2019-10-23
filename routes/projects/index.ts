@@ -61,6 +61,8 @@ router.delete('/api/project/:id', verifiAuth, async (req: Request, res: Response
             const project = await Project.findById(id);
             await Project.findByIdAndDelete((project as any)._id);
             await Task.deleteMany({project_id: (project as any)._id});
+            await ProjectSubscribe.deleteMany({project: id});
+
             res.status(200).json({ok: false, res: 'removed'});
         } else {
             res.status(500).json({ok: false, res: 'We cant remove this project'});

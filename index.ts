@@ -5,8 +5,10 @@ import AuthRouter from "./routes/authorization";
 import Config from './configuration';
 import db from './database';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const server = express();
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(ProjectsRouter);
