@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const userSchema = new mongoose.Schema({
     email: {type: String, unique: true, lowercase: true},
     name: {type: String},
-    hash: {type: String},
+    hash: {type: String, select: false},
     isActivate: {type: Boolean, default: false}
 });
 
