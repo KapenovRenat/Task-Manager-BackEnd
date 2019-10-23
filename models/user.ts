@@ -21,7 +21,7 @@ userSchema.methods.checkPassword = function(password: string) {
 userSchema.methods.createToken = async function() {
     return await jwt.sign({
         data: {_id: this._id, name: this.name}
-    }, 'manager', { expiresIn: 10 });
+    }, 'manager', { expiresIn: 60 * 60 });
 };
 
 const User = mongoose.model('User', userSchema);
