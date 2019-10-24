@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import { verifiAuth } from "../../middleware/authVerifi";
-import { mailSend } from "../../services/mail-send";
+import { verifiAuth } from '../../middleware/authVerifi';
+import { mailSend } from '../../services/mail-send';
 import { validate, validateLogin } from '../../middleware/customValidate';
 import User from '../../models/user';
 const router = express.Router();

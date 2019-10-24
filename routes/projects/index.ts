@@ -1,8 +1,8 @@
-import { USER_STATUS } from "../../configuration";
+import { USER_STATUS } from '../../configuration';
 import express from 'express';
 import { Request, Response } from "express";
-import { verifiAuth } from "../../middleware/authVerifi";
-import Project  from "../../models/project";
+import { verifiAuth } from '../../middleware/authVerifi';
+import Project  from '../../models/project';
 import Task from '../../models/task';
 import ProjectSubscribe from '../../models/project-subscribe';
 const router = express.Router();

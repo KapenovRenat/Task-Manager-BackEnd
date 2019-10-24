@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 import config from '../../configuration';
 interface IUser {
     _id: string;
@@ -26,7 +26,7 @@ export async function mailSend(user: IUser) {
             html: `
                 <h2>Hello</h2>
                 <h3>Confirm pls your email!</h3>
-                <a href="http://localhost:4000/api/registration/${user._id}" target="_blank">Confirm</a>
+                <a href='http://localhost:4000/api/registration/${user._id}' target='_blank'>Confirm</a>
             `
         });
     } catch (e) {

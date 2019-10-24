@@ -1,6 +1,6 @@
 import express from 'express';
-import { Request, Response } from "express";
-import { verifiAuth } from "../../middleware/authVerifi";
+import { Request, Response } from 'express';
+import { verifiAuth } from '../../middleware/authVerifi';
 import Task from '../../models/task';
 
 const router = express.Router();

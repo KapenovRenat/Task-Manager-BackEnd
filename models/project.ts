@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 import * as mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({

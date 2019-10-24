@@ -1,4 +1,4 @@
-import { USER_STATUS } from "../configuration";
+import { USER_STATUS } from '../configuration';
 import * as mongoose from 'mongoose';
 
 const projectSubscribeSchema = new mongoose.Schema({

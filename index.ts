@@ -1,7 +1,8 @@
 import express from 'express';
-import TaskRouter from "./routes/task";
-import ProjectsRouter from "./routes/projects";
-import AuthRouter from "./routes/authorization";
+import TaskRouter from './routes/task';
+import ProjectsRouter from './routes/projects';
+import AuthRouter from './routes/authorization';
+import MainRouter from './routes/main';
 import Config from './configuration';
 import db from './database';
 import bodyParser from 'body-parser';
@@ -14,6 +15,7 @@ server.use(bodyParser.json());
 server.use(ProjectsRouter);
 server.use(AuthRouter);
 server.use(TaskRouter);
+server.use(MainRouter);
 server.listen(Config.PORT, () => {
     db;
     console.log('server started');
