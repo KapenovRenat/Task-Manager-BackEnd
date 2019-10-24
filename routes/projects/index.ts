@@ -38,7 +38,6 @@ router.post('/api/project', verifiAuth, async (req: Request, res: Response) => {
     const project = new Project({
         name: req.body.name,
         author: (req as any).user._id,
-        hash: req.body.hash
     });
     const projectSubscribe = new ProjectSubscribe({
         user_id: (req as any).user._id,
@@ -49,7 +48,7 @@ router.post('/api/project', verifiAuth, async (req: Request, res: Response) => {
         await projectSubscribe.save();
         res.status(200).json({ok: true, res: 'Project created'})
     }catch (e) {
-        res.status(500).json({ok: false, res: 'Server error'});
+        res.status(500).json({ok: false, res: 'Project expected'});
     }
 });
 
