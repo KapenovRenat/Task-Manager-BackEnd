@@ -1,8 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { verifiAuth } from '../../middleware/authVerifi';
-import { mailSend } from '../../services/mail-send';
-import User from '../../models/user';
 import Project  from '../../models/project';
 import Task from '../../models/task';
 

@@ -26,8 +26,10 @@ router.get('/api/project', verifiAuth, async (req: Request, res: Response) => {
 router.get('/api/project/:id', async (req: Request, res: Response) => {
     try {
         const tasks = await Task.find({project_id: req.params.id});
-        const user_project = await ProjectSubscribe.find({project: req.params.id});
-        const result = {tasks, user_project};
+        const users_project = await ProjectSubscribe.find({project: req.params.id})
+            .populate('user_id', '+project');
+        const project = await Project.findById(req.params.id);
+        const result = {tasks, users_project, project};
         res.status(200).json({ok: true, res: result});
     } catch (e) {
         res.status(500).json({ok: false, res: 'Server Error'});
