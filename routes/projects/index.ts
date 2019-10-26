@@ -8,15 +8,20 @@ import ProjectSubscribe from '../../models/project-subscribe';
 const router = express.Router();
 
 router.get('/api/project', verifiAuth, async (req: Request, res: Response) => {
-    const { skip } = req.query;
+    const { isPrivate } = req.query;
+    let result: any;
     try {
+        if (isPrivate) {
+            result = await Project.find({isPrivate})
+                .populate('author', 'name');
+        } else {
+            result = await Project.find()
+                .populate('author', 'name');
+        }
         res.status(200)
             .json({
                 ok: true,
-                res: await Project.find()
-                    .populate('author', 'name')
-                    .skip(Number(skip))
-                    .limit(5)
+                res: result
             });
     } catch (e) {
         res.status(404).json({ok: false, res: 'Server error'});
