@@ -9,14 +9,27 @@ const router = express.Router();
 
 router.get('/api/project', verifiAuth, async (req: Request, res: Response) => {
     const { isPrivate } = req.query;
-    let result: any;
+    let projects: any;
     try {
         if (isPrivate) {
-            result = await Project.find({isPrivate})
+            projects = await Project.find({isPrivate})
                 .populate('author', 'name');
         } else {
-            result = await Project.find()
+            projects = await Project.find()
                 .populate('author', 'name');
+        }
+        let result: any = [];
+        for (let i = 0; i < projects.length; i ++) {
+            let subscribes = await ProjectSubscribe.find({project: projects[i]._id});
+            const project: any = {
+                _id: projects[i]._id,
+                name: projects[i].name,
+                author: projects[i].author,
+                url_avatar: projects[i].url_avatar,
+                isPrivate: projects[i].isPrivate,
+                subscribes
+            };
+            result.push(project);
         }
         res.status(200)
             .json({
@@ -28,7 +41,7 @@ router.get('/api/project', verifiAuth, async (req: Request, res: Response) => {
     }
 });
 
-router.get('/api/project/:id', async (req: Request, res: Response) => {
+router.get('/api/project/:id', verifiAuth, async (req: Request, res: Response) => {
     try {
         const tasks = await Task.find({project_id: req.params.id});
         const users_project = await ProjectSubscribe.find({project: req.params.id})
@@ -69,7 +82,7 @@ router.delete('/api/project/:id', verifiAuth, async (req: Request, res: Response
             await Task.deleteMany({project_id: (project as any)._id});
             await ProjectSubscribe.deleteMany({project: id});
 
-            res.status(200).json({ok: false, res: 'removed'});
+            res.status(200).json({ok: true, res: 'removed'});
         } else {
             res.status(500).json({ok: false, res: 'We cant remove this project'});
         }
