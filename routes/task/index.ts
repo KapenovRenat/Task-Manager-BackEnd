@@ -21,6 +21,17 @@ router.post('/api/project/:id/task', verifiAuth, async (req: Request, res: Respo
     }
 });
 
+router.get('/api/project/:id/tasks', verifiAuth, async (req: Request, res: Response) => {
+    try {
+        const tasks = await Task.find({project_id: req.params.id});
+        res.status(200)
+            .json({ok: true, res: tasks});
+    } catch (e) {
+        res.status(500)
+            .json({ok: false, res: 'Server Error'});
+    }
+});
+
 router.put('/api/project/task/:id', async (req: Request, res: Response)=> {
     const { name, status_id } = req.body;
     try {
