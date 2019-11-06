@@ -36,7 +36,6 @@ export async function mailSend(user: IUser) {
 }
 
 export async function invitationMailSend(userFrom: any, project: any, userTo: any) {
-    console.log(userTo)
     try {
         return await transporter.sendMail({
             from: 'managergroup1995@mail.ru <managergroup1995@mail.ru>',
@@ -45,7 +44,7 @@ export async function invitationMailSend(userFrom: any, project: any, userTo: an
             html: `
                 <h2>Hello</h2>
                 <h3>You invitation in project: ${project[0].name} from ${userFrom.name}</h3>
-                <a href='http://localhost:4000/api/invitation/project/confirm/${project[0]._id}?user_id=${userTo.email}' target='_blank'>Go Project</a>
+                <a href='http://localhost:4000/api/invitation/project/confirm/${project[0]._id}?user_id=${userTo[0].email}' target='_blank'>Go Project</a>
             `
         });
     } catch (e) {

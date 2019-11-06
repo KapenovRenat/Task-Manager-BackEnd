@@ -99,6 +99,19 @@ router.post('/api/invite/project/:id', verifiAuth, async (req: Request, res: Res
         let project = await Project.find({_id: id});
         let user = await User.find({email: req.body.email});
         invitationMailSend((req as any).user, project, user);
+        res.status(200).json({ok: true, res: 'invitation ok!'})
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server error'});
+    }
+});
+
+router.get('/api/invitation/project/confirm/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        let user: any = await User.find({email: req.query.user_id});
+        let sub = new ProjectSubscribe({user_id: user[0]._id, user_status: USER_STATUS.DEVELOPER, project: id});
+        await sub.save();
+        res.status(200).json({ok: true, res: 'Good'})
     } catch (e) {
         res.status(500).json({ok: false, res: 'Server error'});
     }
