@@ -1,3 +1,5 @@
+import User from "../../models/user";
+import { invitationMailSend } from "../../services/mail-send";
 import { USER_STATUS } from '../../configuration';
 import express from 'express';
 import { Request, Response } from "express";
@@ -86,6 +88,17 @@ router.delete('/api/project/:id', verifiAuth, async (req: Request, res: Response
         } else {
             res.status(500).json({ok: false, res: 'We cant remove this project'});
         }
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server error'});
+    }
+});
+
+router.post('/api/invite/project/:id', verifiAuth, async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        let project = await Project.find({_id: id});
+        let user = await User.find({email: req.body.email});
+        invitationMailSend((req as any).user, project, user);
     } catch (e) {
         res.status(500).json({ok: false, res: 'Server error'});
     }

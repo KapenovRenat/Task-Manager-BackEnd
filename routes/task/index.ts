@@ -32,7 +32,7 @@ router.get('/api/project/:id/tasks', verifiAuth, async (req: Request, res: Respo
     }
 });
 
-router.put('/api/project/task/:id', async (req: Request, res: Response)=> {
+router.put('/api/project/task/:id',  verifiAuth, async (req: Request, res: Response)=> {
     const { status_id } = req.body;
     try {
         await Task.findByIdAndUpdate(req.params.id, { status_id });
@@ -42,7 +42,7 @@ router.put('/api/project/task/:id', async (req: Request, res: Response)=> {
     }
 });
 
-router.delete('/api/project/task/:id', async (req: Request, res: Response)=> {
+router.delete('/api/project/task/:id', verifiAuth, async (req: Request, res: Response)=> {
     try {
         await Task.findByIdAndDelete(req.params.id);
         res.status(200).json({ok: true, res: 'Task Deleted'});
