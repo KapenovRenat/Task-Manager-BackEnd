@@ -23,7 +23,8 @@ router.post('/api/project/:id/task', verifiAuth, async (req: Request, res: Respo
 
 router.get('/api/project/:id/tasks', verifiAuth, async (req: Request, res: Response) => {
     try {
-        const tasks = await Task.find({project_id: req.params.id});
+        const tasks = await Task.find({project_id: req.params.id})
+            .populate('');
         res.status(200)
             .json({ok: true, res: tasks});
     } catch (e) {

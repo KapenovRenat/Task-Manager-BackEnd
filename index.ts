@@ -3,6 +3,7 @@ import TaskRouter from './routes/task';
 import ProjectsRouter from './routes/projects';
 import AuthRouter from './routes/authorization';
 import MainRouter from './routes/main';
+import UsersRouter from './routes/users';
 import Config from './configuration';
 import db from './database';
 import bodyParser from 'body-parser';
@@ -16,6 +17,7 @@ server.use(ProjectsRouter);
 server.use(AuthRouter);
 server.use(TaskRouter);
 server.use(MainRouter);
+server.use(UsersRouter);
 server.listen(Config.PORT, () => {
     db;
     console.log('server started');
