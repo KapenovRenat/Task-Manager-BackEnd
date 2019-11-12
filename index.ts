@@ -8,6 +8,7 @@ import Config from './configuration';
 import db from './database';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import webSocketServer from './websocket';
 
 const server = express();
 server.use(cors());
@@ -21,4 +22,5 @@ server.use(UsersRouter);
 server.listen(Config.PORT, () => {
     db;
     console.log('server started');
+    webSocketServer;
 });
