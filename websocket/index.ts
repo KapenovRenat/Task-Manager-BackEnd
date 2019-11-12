@@ -14,9 +14,11 @@ webSocketServer.on('connection', function(ws, req) {
         users[project].push(ws);
     }
 
-    ws.on('message', function(message) {
-        console.log('получено сообщение ' + message);
-
+    ws.on('message', function(message: string) {
+        let data: any = JSON.parse(message);
+        users[data.project_id].forEach((item: any) => {
+            item.send(message);
+        })
     });
 
     ws.on('close', function() {
