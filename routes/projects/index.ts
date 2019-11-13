@@ -1,3 +1,4 @@
+import Message from "../../models/messages-project";
 import User from "../../models/user";
 import { invitationMailSend } from "../../services/mail-send";
 import { USER_STATUS } from '../../configuration';
@@ -112,6 +113,16 @@ router.get('/api/invitation/project/confirm/:id', async (req: Request, res: Resp
         let sub = new ProjectSubscribe({user_id: user[0]._id, user_status: USER_STATUS.DEVELOPER, project: id});
         await sub.save();
         res.status(200).json({ok: true, res: 'Good'})
+    } catch (e) {
+        res.status(500).json({ok: false, res: 'Server error'});
+    }
+});
+
+router.get('/api/project/messages/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        let messages: any = await Message.find({project_id: id});
+        res.status(200).json({ok: true, res: messages});
     } catch (e) {
         res.status(500).json({ok: false, res: 'Server error'});
     }
