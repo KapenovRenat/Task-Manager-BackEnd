@@ -1,3 +1,4 @@
+import Message from "../models/messages-project";
 import WebSocketServer from 'ws';
 
 let users: any = {};
@@ -16,9 +17,21 @@ webSocketServer.on('connection', function(ws, req) {
 
     ws.on('message', function(message: string) {
         let data: any = JSON.parse(message);
-        users[data.project_id].forEach((item: any) => {
-            item.send(message);
-        })
+        if (data.type === 1) {
+            let messageSave = new Message(data);
+            messageSave.save().then(res => {
+                users[data.project_id].forEach((item: any) => {
+                    item.send(message);
+                });
+            }).catch(e => {
+                console.log(e);
+            })
+        } else {
+            users[data.project_id].forEach((item: any) => {
+                item.send(message);
+            });
+        }
+
     });
 
     ws.on('close', function() {
